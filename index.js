@@ -70,9 +70,10 @@ app.post('/api/persons', (req, res) => {
 });
 
 // Let frontend handle unknown routes (must be last)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
+
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
