@@ -56,7 +56,7 @@ app.put('/api/persons/:id', (req, res, next) => {
 });
 
 app.delete('/api/persons/:id', (req, res, next) => {
-  Person.findByIdAndRemove(req.params.id)
+  Person.findByIdAndDelete(req.params.id)
     .then(result => {
       if (result) {
         res.status(204).end()
@@ -100,6 +100,10 @@ app.post('/api/persons', (req, res, next) => {
 const errorHandler = (error, req, res, next) => {
   if (error.name === 'CastError') {
     return res.status(400).json({ error: 'malformatted id' })
+  }
+  else if (error.name === 'ValidationError')
+  {
+    return res.status(400).json({ error: error.message })
   }
   // You can handle other error types here
 
